@@ -6,20 +6,17 @@ import SearchResult from "./pages/SearchResult";
 import RepoDetail from "./pages/RepoDetail";
 
 class App extends Component {
-	render() {
-		return (
-			<Router>
-				<div className="App">
-					<Route exact path="/" component={HomePage} />
-					<Route
-						path="/search_result/:word"
-						component={SearchResult}
-					/>
-					<Route path="/info/:name" component={RepoDetail} />
-				</div>
-			</Router>
-		);
-	}
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={HomePage} />
+          <Route path="/search_result/:word" component={SearchResult} />
+          <Route path="/info/:name" component={RepoDetail} />
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;
