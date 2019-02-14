@@ -5,17 +5,17 @@
   "homepage": "http://lalitmee.github.io/github-search",
   "dependencies": {
     "axios": "^0.18.0",
-    "prop-types": "^15.7.1",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-redux": "^5.0.7",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
+    "react-scripts": "2.1.5",
+    "redux": "^4.0.1",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
-    "semantic-ui-css": "^2.3.1",
-    "semantic-ui-react": "^0.81.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.85.0",
     "sweetalert2-react": "^0.7.2"
   },
   "scripts": {
@@ -28,16 +28,16 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.9.1",
-    "gh-pages": "^1.2.0",
-    "prettier": "^1.13.5",
-    "redux-devtools-extension": "^2.13.2"
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "gh-pages": "^2.0.1",
+    "prettier": "^1.16.4",
+    "redux-devtools-extension": "^2.13.8"
   }
 }
