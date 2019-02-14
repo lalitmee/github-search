@@ -137,8 +137,7 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  fetchResult: PropTypes.func.isRequired,
-  history: PropTypes.arr.isRequired
+  fetchResult: PropTypes.func.isRequired
 };
 
 export default connect(

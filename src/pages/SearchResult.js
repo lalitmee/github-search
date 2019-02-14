@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -33,19 +34,13 @@ class SearchResult extends Component {
       this.setState({
         forksI: !this.state.forksI
       });
-      const sortedArray = this.sortByKeyI(
-        this.props.search_result,
-        'forks_count'
-      );
+      this.sortByKeyI(this.props.search_result, 'forks_count');
     } else {
       this.setState({
         forksI: !this.state.forksI
       });
 
-      const sortedArray = this.sortByKeyD(
-        this.props.search_result,
-        'forks_count'
-      );
+      this.sortByKeyD(this.props.search_result, 'forks_count');
     }
   };
 
@@ -54,19 +49,13 @@ class SearchResult extends Component {
       this.setState({
         starsI: !this.state.starsI
       });
-      const sortedArray = this.sortByKeyI(
-        this.props.search_result,
-        'stargazers_count'
-      );
+      this.sortByKeyI(this.props.search_result, 'stargazers_count');
     } else {
       this.setState({
         starsI: !this.state.starsI
       });
 
-      const sortedArray = this.sortByKeyD(
-        this.props.search_result,
-        'stargazers_count'
-      );
+      this.sortByKeyD(this.props.search_result, 'stargazers_count');
     }
   };
 
@@ -75,18 +64,12 @@ class SearchResult extends Component {
       this.setState({
         watchersI: !this.state.watchersI
       });
-      const sortedArray = this.sortByKeyI(
-        this.props.search_result,
-        'watchers_count'
-      );
+      this.sortByKeyI(this.props.search_result, 'watchers_count');
     } else {
       this.setState({
         watchersI: !this.state.watchersI
       });
-      const sortedArray = this.sortByKeyD(
-        this.props.search_result,
-        'watchers_count'
-      );
+      this.sortByKeyD(this.props.search_result, 'watchers_count');
     }
   };
 
@@ -95,13 +78,13 @@ class SearchResult extends Component {
       this.setState({
         usernameI: !this.state.usernameI
       });
-      const sortedArray = this.sortByKeyI(this.props.search_result, 'login');
+      this.sortByKeyI(this.props.search_result, 'login');
     } else {
       this.setState({
         usernameI: !this.state.starsI
       });
 
-      const sortedArray = this.sortByKeyD(this.props.search_result, 'login');
+      this.sortByKeyD(this.props.search_result, 'login');
     }
   };
 
@@ -110,13 +93,13 @@ class SearchResult extends Component {
       this.setState({
         reponame: !this.state.reponame
       });
-      const sortedArray = this.sortByKeyI(this.props.search_result, 'name');
+      this.sortByKeyI(this.props.search_result, 'name');
     } else {
       this.setState({
         reponame: !this.state.reponame
       });
 
-      const sortedArray = this.sortByKeyD(this.props.search_result, 'name');
+      this.sortByKeyD(this.props.search_result, 'name');
     }
   };
 
@@ -124,14 +107,16 @@ class SearchResult extends Component {
     array.sort((a, b) => {
       let x;
       let y;
-      if (b == 'login') {
+      if (b === 'login') {
         x = a.owner[key];
         y = b.owner[key];
       } else {
         x = a[key];
         y = b[key];
       }
-      return x < y ? -1 : x > y ? 1 : 0;
+      if (x < y) return -1;
+      if (x > y) return 1;
+      return 0;
     });
 
   sortByKeyD = (array, key) =>
@@ -145,13 +130,13 @@ class SearchResult extends Component {
         x = a[key];
         y = b[key];
       }
-      return x > y ? -1 : x < y ? 1 : 0;
+      if (x < y) return -1;
+      if (x > y) return 1;
+      return 0;
     });
 
   render() {
     const { params } = this.props.match;
-
-    const { forksI, starsI, watchersI, usernameI, reponame } = this.state;
 
     if (this.props.isFetching && !this.props.search_result.length) {
       return (
@@ -279,5 +264,12 @@ function mapStateToProps(state) {
     isFetching: true
   };
 }
+
+SearchResult.propTypes = {
+  match: PropTypes.instanceOf({
+    params: PropTypes.object.isRequired
+  }).isRequired,
+  isFetching: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps)(SearchResult);
