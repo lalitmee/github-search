@@ -42,14 +42,6 @@ class HomePage extends Component {
     this.props.history.push(`/search_result/${this.state.word}`);
   };
 
-  // onSearchChange = (e, data) => {
-  // 	clearTimeout(this.timer);
-  // 	this.setState({
-  // 		query: data.searchQuery
-  // 	});
-  // 	this.timer = setTimeout(this.fetchData, 1000);
-  // };
-
   /**
    * getting the search input for searching the repositories
    */
@@ -61,26 +53,6 @@ class HomePage extends Component {
     this.props.history.push(`/repo/${repoName}`);
   };
 
-  // fetchData = () => {
-  // 	if (!this.state.query) return;
-  // 	this.setState({ loading: true });
-  // 	this.props
-  // 		.fetchResult(this.state.query)
-  // 		.then(response => response.payload.data.items)
-  // 		.then(items => {
-  // 			// console.log(data);
-  // 			const options = [];
-  // 			items.forEach(repo => {
-  // 				options.push({
-  // 					key: repo.id,
-  // 					value: repo.name,
-  // 					text: repo.name,
-  // 					repo_id: repo.id
-  // 				});
-  // 			});
-  // 			this.setState({ loading: false, options });
-  // 		});
-  // };
   render() {
     const { word } = this.state;
     if (this.state.noResult) {
@@ -165,7 +137,8 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  fetchResult: PropTypes.func.isRequired
+  fetchResult: PropTypes.func.isRequired,
+  history: PropTypes.arr.isRequired
 };
 
 export default connect(
