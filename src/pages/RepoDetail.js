@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Card,
@@ -10,9 +11,11 @@ import {
 } from 'semantic-ui-react';
 
 class RepoDetail extends Component {
-  componentWillReceiveProps(newProps) {
-    console.log(newProps);
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
+
   render() {
     const { repoDetail } = this.props.location.state;
     return (
@@ -175,5 +178,13 @@ class RepoDetail extends Component {
     );
   }
 }
+
+RepoDetail.propTypes = {
+  location: PropTypes.instanceOf({
+    state: PropTypes.instanceOf({
+      repoDetail: PropTypes.object.isRequired
+    }).isRequired
+  }).isRequired
+};
 
 export default RepoDetail;
