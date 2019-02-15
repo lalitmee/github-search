@@ -10,36 +10,37 @@ import {
   Segment
 } from 'semantic-ui-react';
 import SweetAlert from 'sweetalert2-react';
-import { fetchResult } from '../actions/index';
+import getResult from '../actions/index';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      word: '',
       query: '',
-      loading: false,
-      noResult: false,
-      options: []
+      // loading: false,
+      noResult: false
+      // options: []
     };
     this.onInputChange = this.onInputChange.bind(this);
   }
 
   onInputChange = e => {
     this.setState({
-      word: e.target.value
+      query: e.target.value
     });
   };
 
   onSubmit = () => {
-    if (this.state.word == '' || this.state.word == undefined) {
+    const { query } = this.state;
+    const { getResult, history } = this.props;
+    if (query === '' || query === undefined) {
       this.setState({
         noResult: true
       });
       return;
     }
-    this.props.fetchResult(this.state.word);
-    this.props.history.push(`/search_result/${this.state.word}`);
+    getResult(query);
+    history.push(`/search_result/${query}`);
   };
 
   /**
@@ -47,18 +48,19 @@ class HomePage extends Component {
    */
   onChange = (e, data) => {
     const repoName = data.value;
+    const { history } = this.props;
     this.setState({
       query: repoName
     });
-    this.props.history.push(`/repo/${repoName}`);
+    history.push(`/repo/${repoName}`);
   };
 
   render() {
-    const { word } = this.state;
-    if (this.state.noResult) {
+    const { query, noResult } = this.state;
+    if (noResult) {
       return (
         <SweetAlert
-          show={this.state.noResult}
+          show={noResult}
           type="warning"
           title="Search String Not Found"
           text="Please enter any search string to search"
@@ -110,10 +112,10 @@ class HomePage extends Component {
                     width={13}
                     label="Search For Any Name"
                     type="text"
-                    id="word"
-                    name="word"
-                    placeholder="Search for any word"
-                    value={word}
+                    id="query"
+                    name="query"
+                    placeholder="Search for any query"
+                    value={query}
                     onChange={this.onInputChange}
                   />
                   <Form.Button
@@ -137,12 +139,19 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  fetchResult: PropTypes.func.isRequired
+  getResult: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  })
+};
+
+HomePage.defaultProps = {
+  history: null
 };
 
 export default connect(
   null,
   {
-    fetchResult
+    getResult
   }
 )(HomePage);

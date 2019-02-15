@@ -30,76 +30,86 @@ class SearchResult extends Component {
   }
 
   onClickForks = () => {
-    if (this.state.forksI) {
+    const { searchResult } = this.props;
+    const { forksI } = this.state;
+    if (forksI) {
       this.setState({
-        forksI: !this.state.forksI
+        forksI: !forksI
       });
-      this.sortByKeyI(this.props.search_result, 'forks_count');
+      this.sortByKeyI(searchResult, 'forks_count');
     } else {
       this.setState({
-        forksI: !this.state.forksI
+        forksI: !forksI
       });
 
-      this.sortByKeyD(this.props.search_result, 'forks_count');
+      this.sortByKeyD(searchResult, 'forks_count');
     }
   };
 
   onClickStars = () => {
-    if (this.state.starsI) {
+    const { searchResult } = this.props;
+    const { starsI } = this.state;
+    if (starsI) {
       this.setState({
-        starsI: !this.state.starsI
+        starsI: !starsI
       });
-      this.sortByKeyI(this.props.search_result, 'stargazers_count');
+      this.sortByKeyI(searchResult, 'stargazers_count');
     } else {
       this.setState({
-        starsI: !this.state.starsI
+        starsI: !starsI
       });
 
-      this.sortByKeyD(this.props.search_result, 'stargazers_count');
+      this.sortByKeyD(searchResult, 'stargazers_count');
     }
   };
 
   onClickWatchers = () => {
-    if (this.state.watchersI) {
+    const { searchResult } = this.props;
+    const { watchersI } = this.state;
+    if (watchersI) {
       this.setState({
-        watchersI: !this.state.watchersI
+        watchersI: !watchersI
       });
-      this.sortByKeyI(this.props.search_result, 'watchers_count');
+      this.sortByKeyI(searchResult, 'watchers_count');
     } else {
       this.setState({
-        watchersI: !this.state.watchersI
+        watchersI: !watchersI
       });
-      this.sortByKeyD(this.props.search_result, 'watchers_count');
+      this.sortByKeyD(searchResult, 'watchers_count');
     }
   };
 
   onClickUsername = () => {
-    if (this.state.usernameI) {
+    const { searchResult } = this.props;
+    const { usernameI, starsI } = this.state;
+    if (usernameI) {
       this.setState({
-        usernameI: !this.state.usernameI
+        usernameI: !usernameI
       });
-      this.sortByKeyI(this.props.search_result, 'login');
+      this.sortByKeyI(searchResult, 'login');
     } else {
       this.setState({
-        usernameI: !this.state.starsI
+        usernameI: !starsI
       });
 
-      this.sortByKeyD(this.props.search_result, 'login');
+      this.sortByKeyD(searchResult, 'login');
     }
   };
 
   onClickRepoName = () => {
-    if (this.state.reponame) {
+    const { searchResult } = this.props;
+    const { reponame } = this.state;
+    if (reponame) {
       this.setState({
-        reponame: !this.state.reponame
+        reponame: !reponame
       });
-      this.sortByKeyI(this.props.search_result, 'name');
+      this.sortByKeyI(searchResult, 'name');
     } else {
       this.setState({
-        reponame: !this.state.reponame
+        reponame: !reponame
       });
 
-      this.sortByKeyD(this.props.search_result, 'name');
+      this.sortByKeyD(searchResult, 'name');
     }
   };
 
@@ -123,7 +133,7 @@ class SearchResult extends Component {
     array.sort((a, b) => {
       let x;
       let y;
-      if (b == 'login') {
+      if (b === 'login') {
         x = a.owner[key];
         y = b.owner[key];
       } else {
@@ -136,9 +146,15 @@ class SearchResult extends Component {
     });
 
   render() {
-    const { params } = this.props.match;
+    const {
+      match: { params },
+      isFetching,
+      searchResult
+    } = this.props;
 
-    if (this.props.isFetching && !this.props.search_result.length) {
+    const { forksI, watchersI, starsI, reponame, usernameI } = this.state;
+
+    if (isFetching && !searchResult.length) {
       return (
         <Container textAlign="center">
           <Header as="h1" style={{ padding: '20px' }}>
@@ -165,29 +181,29 @@ class SearchResult extends Component {
         <Segment>
           <Form>
             <Form.Group widths="equal">
-              <label style={{ fontSize: '25px' }}>Sorting: &nbsp;</label>
+              <div style={{ fontSize: '25px' }}>Sorting: &nbsp;</div>
               <Form.Button color="orange" onClick={this.onClickForks}>
-                Forks({this.state.forksI ? 'Dec' : 'Inc'})
+                Forks({forksI ? 'Dec' : 'Inc'})
               </Form.Button>
               <Form.Button color="yellow" onClick={this.onClickWatchers}>
-                Watchers({this.state.watchersI ? 'Dec' : 'Inc'})
+                Watchers({watchersI ? 'Dec' : 'Inc'})
               </Form.Button>
               <Form.Button color="green" onClick={this.onClickStars}>
-                Stars({this.state.starsI ? 'Dec' : 'Inc'})
+                Stars({starsI ? 'Dec' : 'Inc'})
               </Form.Button>
               <Form.Button color="teal" onClick={this.onClickUsername}>
-                Username({this.state.usernameI ? 'Dec' : 'Inc'})
+                Username({usernameI ? 'Dec' : 'Inc'})
               </Form.Button>
 
               <Form.Button color="teal" onClick={this.onClickRepoName}>
-                Repo Name({this.state.reponame ? 'Dec' : 'Inc'})
+                Repo Name({reponame ? 'Dec' : 'Inc'})
               </Form.Button>
             </Form.Group>
           </Form>
         </Segment>
         <Card.Group stackable doubling itemsPerRow={3}>
-          {this.props.search_result.length != 0 &&
-            this.props.search_result.map(repo => (
+          {searchResult.length !== 0 &&
+            searchResult.map(repo => (
               <Card color="green" key={repo.id}>
                 {/*	<Image src={repo.owner.avatar_url} /> */}
                 <Card.Content>
@@ -217,22 +233,16 @@ class SearchResult extends Component {
                   <Grid columns={3}>
                     <Grid.Row>
                       <Grid.Column>
-                        <a>
-                          <Icon name="eye" />
-                          {repo.watchers_count}
-                        </a>
+                        <Icon name="eye" />
+                        {repo.watchers_count}
                       </Grid.Column>
                       <Grid.Column>
-                        <a>
-                          <Icon name="star" />
-                          {repo.stargazers_count}
-                        </a>
+                        <Icon name="star" />
+                        {repo.stargazers_count}
                       </Grid.Column>
                       <Grid.Column>
-                        <a>
-                          <Icon name="fork" />
-                          {repo.forks_count}
-                        </a>
+                        <Icon name="fork" />
+                        {repo.forks_count}
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
@@ -248,24 +258,29 @@ class SearchResult extends Component {
 function mapStateToProps(state) {
   if (state.dataReducer.length > 0) {
     const count = state.dataReducer.length;
-    if (state.dataReducer[count - 1].isFetching == false) {
+    if (state.dataReducer[count - 1].isFetching === false) {
       return {
-        search_result: state.dataReducer[count - 1].data.items,
+        searchResult: state.dataReducer[count - 1].data.items,
         isFetching: state.dataReducer[count - 1].isFetching
       };
     }
     return {
-      search_result: [],
+      searchResult: [],
       isFetching: state.dataReducer[count - 1].isFetching
     };
   }
   return {
-    search_result: [],
+    searchResult: [],
     isFetching: true
   };
 }
 
 SearchResult.propTypes = {
+  searchResult: PropTypes.arrayOf({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    created_at: PropTypes.string
+  }).isRequired,
   match: PropTypes.instanceOf({
     params: PropTypes.object.isRequired
   }).isRequired,
