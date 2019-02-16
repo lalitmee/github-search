@@ -205,7 +205,6 @@ class SearchResult extends Component {
           {searchResult.length !== 0 &&
             searchResult.map(repo => (
               <Card color="green" key={repo.id}>
-                {/*	<Image src={repo.owner.avatar_url} /> */}
                 <Card.Content>
                   <Card.Header>
                     <Link

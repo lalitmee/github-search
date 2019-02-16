@@ -1,14 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Card,
-  Container,
-  Form,
-  Grid,
-  Header,
-  Segment
-} from 'semantic-ui-react';
+import { Card, Container, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SweetAlert from 'sweetalert2-react';
 import getResult from '../actions/index';
 
@@ -17,9 +10,7 @@ class HomePage extends Component {
     super(props);
     this.state = {
       query: '',
-      // loading: false,
       noResult: false
-      // options: []
     };
     this.onInputChange = this.onInputChange.bind(this);
   }
