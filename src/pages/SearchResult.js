@@ -2,17 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  Button,
-  Card,
-  Container,
-  Form,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Segment
-} from 'semantic-ui-react';
+import { Button, Card, Container, Form, Grid, Header, Icon, Image, Segment } from 'semantic-ui-react';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -29,6 +19,9 @@ class SearchResult extends Component {
     this.onClickUsername = this.onClickUsername.bind(this);
   }
 
+  /**
+   * * For Sorting according to number of Forks
+   */
   onClickForks = () => {
     const { searchResult } = this.props;
     const { forksI } = this.state;
@@ -46,6 +39,9 @@ class SearchResult extends Component {
     }
   };
 
+  /**
+   * * For Sorting according to number of Stars
+   */
   onClickStars = () => {
     const { searchResult } = this.props;
     const { starsI } = this.state;
@@ -63,6 +59,9 @@ class SearchResult extends Component {
     }
   };
 
+  /**
+   * * For Sorting according to number of watchers
+   */
   onClickWatchers = () => {
     const { searchResult } = this.props;
     const { watchersI } = this.state;
