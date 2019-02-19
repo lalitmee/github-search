@@ -2,7 +2,17 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Card, Container, Form, Grid, Header, Icon, Image, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Card,
+  Container,
+  Form,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  Segment,
+} from 'semantic-ui-react';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -11,7 +21,7 @@ class SearchResult extends Component {
       forksI: true,
       starsI: true,
       watchersI: true,
-      usernameI: true
+      usernameI: true,
     };
     this.onClickForks = this.onClickForks.bind(this);
     this.onClickWatchers = this.onClickWatchers.bind(this);
@@ -27,12 +37,12 @@ class SearchResult extends Component {
     const { forksI } = this.state;
     if (forksI) {
       this.setState({
-        forksI: !forksI
+        forksI: !forksI,
       });
       this.sortByKeyI(searchResult, 'forks_count');
     } else {
       this.setState({
-        forksI: !forksI
+        forksI: !forksI,
       });
 
       this.sortByKeyD(searchResult, 'forks_count');
@@ -47,12 +57,12 @@ class SearchResult extends Component {
     const { starsI } = this.state;
     if (starsI) {
       this.setState({
-        starsI: !starsI
+        starsI: !starsI,
       });
       this.sortByKeyI(searchResult, 'stargazers_count');
     } else {
       this.setState({
-        starsI: !starsI
+        starsI: !starsI,
       });
 
       this.sortByKeyD(searchResult, 'stargazers_count');
@@ -67,12 +77,12 @@ class SearchResult extends Component {
     const { watchersI } = this.state;
     if (watchersI) {
       this.setState({
-        watchersI: !watchersI
+        watchersI: !watchersI,
       });
       this.sortByKeyI(searchResult, 'watchers_count');
     } else {
       this.setState({
-        watchersI: !watchersI
+        watchersI: !watchersI,
       });
       this.sortByKeyD(searchResult, 'watchers_count');
     }
@@ -83,12 +93,12 @@ class SearchResult extends Component {
     const { usernameI, starsI } = this.state;
     if (usernameI) {
       this.setState({
-        usernameI: !usernameI
+        usernameI: !usernameI,
       });
       this.sortByKeyI(searchResult, 'login');
     } else {
       this.setState({
-        usernameI: !starsI
+        usernameI: !starsI,
       });
 
       this.sortByKeyD(searchResult, 'login');
@@ -100,12 +110,12 @@ class SearchResult extends Component {
     const { reponame } = this.state;
     if (reponame) {
       this.setState({
-        reponame: !reponame
+        reponame: !reponame,
       });
       this.sortByKeyI(searchResult, 'name');
     } else {
       this.setState({
-        reponame: !reponame
+        reponame: !reponame,
       });
 
       this.sortByKeyD(searchResult, 'name');
@@ -148,7 +158,7 @@ class SearchResult extends Component {
     const {
       match: { params },
       isFetching,
-      searchResult
+      searchResult,
     } = this.props;
 
     const { forksI, watchersI, starsI, reponame, usernameI } = this.state;
@@ -210,8 +220,8 @@ class SearchResult extends Component {
                       to={{
                         pathname: `/info/${repo.name}`,
                         state: {
-                          repoDetail: repo
-                        }
+                          repoDetail: repo,
+                        },
                       }}
                     >
                       {repo.name}
@@ -259,17 +269,17 @@ function mapStateToProps(state) {
     if (state.dataReducer[count - 1].isFetching === false) {
       return {
         searchResult: state.dataReducer[count - 1].data.items,
-        isFetching: state.dataReducer[count - 1].isFetching
+        isFetching: state.dataReducer[count - 1].isFetching,
       };
     }
     return {
       searchResult: [],
-      isFetching: state.dataReducer[count - 1].isFetching
+      isFetching: state.dataReducer[count - 1].isFetching,
     };
   }
   return {
     searchResult: [],
-    isFetching: true
+    isFetching: true,
   };
 }
 
@@ -277,12 +287,12 @@ SearchResult.propTypes = {
   searchResult: PropTypes.arrayOf({
     id: PropTypes.string,
     name: PropTypes.string,
-    created_at: PropTypes.string
+    created_at: PropTypes.string,
   }).isRequired,
   match: PropTypes.instanceOf({
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   }).isRequired,
-  isFetching: PropTypes.bool.isRequired
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(SearchResult);
