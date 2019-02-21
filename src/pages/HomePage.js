@@ -1,7 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Container, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import {
+  Card,
+  Container,
+  Form,
+  Grid,
+  Header,
+  Segment,
+} from 'semantic-ui-react';
 import SweetAlert from 'sweetalert2-react';
 import getResult from '../actions/index';
 
@@ -10,23 +17,29 @@ class HomePage extends Component {
     super(props);
     this.state = {
       query: '',
-      noResult: false
+      noResult: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
   }
 
+  /**
+   * * taking the input text as query for the search
+   */
   onInputChange = e => {
     this.setState({
-      query: e.target.value
+      query: e.target.value,
     });
   };
 
+  /**
+   * * on pressing the enter or clicking the search button
+   */
   onSubmit = () => {
     const { query } = this.state;
     const { getResult, history } = this.props;
     if (query === '' || query === undefined) {
       this.setState({
-        noResult: true
+        noResult: true,
       });
       return;
     }
@@ -35,13 +48,13 @@ class HomePage extends Component {
   };
 
   /**
-   * getting the search input for searching the repositories
+   * * getting the search input for searching the repositories
    */
   onChange = (e, data) => {
     const repoName = data.value;
     const { history } = this.props;
     this.setState({
-      query: repoName
+      query: repoName,
     });
     history.push(`/repo/${repoName}`);
   };
@@ -57,7 +70,7 @@ class HomePage extends Component {
           text="Please enter any search string to search"
           onConfirm={() =>
             this.setState({
-              noResult: false
+              noResult: false,
             })
           }
         />
@@ -69,7 +82,7 @@ class HomePage extends Component {
           as="h1"
           textAlign="center"
           style={{
-            padding: '20px'
+            padding: '20px',
           }}
         >
           GitHub Search
@@ -80,7 +93,7 @@ class HomePage extends Component {
               <Card.Content
                 style={{
                   fontSize: '20px',
-                  textAlign: 'center'
+                  textAlign: 'center',
                 }}
               >
                 Search Github Repositories by entering any name you can think of
@@ -94,7 +107,7 @@ class HomePage extends Component {
             <Segment
               style={{
                 width: '600px',
-                marginLeft: '23%'
+                marginLeft: '23%',
               }}
             >
               <Form onSubmit={this.onSubmit}>
@@ -114,7 +127,7 @@ class HomePage extends Component {
                     width={3}
                     type="submit"
                     style={{
-                      marginTop: '24px'
+                      marginTop: '24px',
                     }}
                   >
                     Search
@@ -132,17 +145,17 @@ class HomePage extends Component {
 HomePage.propTypes = {
   getResult: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  })
+    push: PropTypes.func.isRequired,
+  }),
 };
 
 HomePage.defaultProps = {
-  history: null
+  history: null,
 };
 
 export default connect(
   null,
   {
-    getResult
-  }
+    getResult,
+  },
 )(HomePage);

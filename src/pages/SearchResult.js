@@ -88,6 +88,9 @@ class SearchResult extends Component {
     }
   };
 
+  /**
+   * * sorting according to usernames
+   */
   onClickUsername = () => {
     const { searchResult } = this.props;
     const { usernameI, starsI } = this.state;
@@ -105,6 +108,9 @@ class SearchResult extends Component {
     }
   };
 
+  /**
+   * * sorting according to repository names
+   */
   onClickRepoName = () => {
     const { searchResult } = this.props;
     const { reponame } = this.state;
@@ -122,6 +128,9 @@ class SearchResult extends Component {
     }
   };
 
+  /**
+   * * sorting order as increasing
+   */
   sortByKeyI = (array, key) =>
     array.sort((a, b) => {
       let x;
@@ -138,6 +147,9 @@ class SearchResult extends Component {
       return 0;
     });
 
+  /**
+   * * sorting order as decreasing
+   */
   sortByKeyD = (array, key) =>
     array.sort((a, b) => {
       let x;
