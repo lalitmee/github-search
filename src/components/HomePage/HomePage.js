@@ -7,10 +7,13 @@ import {
   Form,
   Grid,
   Header,
+  Image,
   Segment,
 } from 'semantic-ui-react';
 import SweetAlert from 'sweetalert2-react';
-import getResult from '../actions/index';
+import getResult from '../../actions/index';
+import githubIcon from '../../images/github-icon.png';
+import './HomePage.css';
 
 class HomePage extends Component {
   constructor(props) {
@@ -78,6 +81,7 @@ class HomePage extends Component {
     }
     return (
       <Container>
+        <Image className="github-icon" src={githubIcon} />
         <Header
           as="h1"
           textAlign="center"
