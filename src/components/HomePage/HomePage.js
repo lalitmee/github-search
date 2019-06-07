@@ -39,14 +39,15 @@ class HomePage extends Component {
    */
   onSubmit = () => {
     const { query } = this.state;
-    const { getResult, history } = this.props;
+    const { history } = this.props;
     if (query === '' || query === undefined) {
       this.setState({
         noResult: true,
       });
       return;
     }
-    getResult(query);
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.getResult(query);
     history.push(`/search_result/${query}`);
   };
 
