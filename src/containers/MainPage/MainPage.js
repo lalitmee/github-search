@@ -1,21 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Card,
-  Container,
-  Form,
-  Grid,
-  Header,
-  Image,
-  Segment,
-} from 'semantic-ui-react';
+import { Container, Grid, Header } from 'semantic-ui-react';
 import SweetAlert from 'sweetalert2-react';
 import getResult from '../../actions/index';
-import githubIcon from '../../images/github-icon.png';
-import './HomePage.css';
+import Logo from '../../components/Logo/Logo';
+import Search from '../../components/Search/Search';
+import './MainPage.css';
 
-class HomePage extends Component {
+class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -82,7 +75,7 @@ class HomePage extends Component {
     }
     return (
       <Container>
-        <Image className="github-icon" src={githubIcon} />
+        <Logo />
         <Header
           as="h1"
           textAlign="center"
@@ -94,52 +87,26 @@ class HomePage extends Component {
         </Header>
         <Grid>
           <Grid.Row>
-            <Card fluid>
-              <Card.Content
-                style={{
-                  fontSize: '20px',
-                  textAlign: 'center',
-                }}
-              >
-                Search Github Repositories by entering any name you can think of
-                in the search input
-              </Card.Content>
-            </Card>
+            <Header
+              as="h3"
+              textAlign="center"
+              style={{
+                margin: '0 auto',
+                padding: '20px',
+              }}
+            >
+              Search Github Repositories by entering any name you can think of
+              in the search input
+            </Header>
           </Grid.Row>
         </Grid>
         <Grid centered columns={1}>
           <Grid.Column>
-            <Segment
-              style={{
-                width: '600px',
-                marginLeft: '23%',
-              }}
-            >
-              <Form onSubmit={this.onSubmit}>
-                <Form.Group>
-                  <Form.Input
-                    width={13}
-                    label="Search For Any Name"
-                    type="text"
-                    id="query"
-                    name="query"
-                    placeholder="Search for any query"
-                    value={query}
-                    onChange={this.onInputChange}
-                  />
-                  <Form.Button
-                    primary
-                    width={3}
-                    type="submit"
-                    style={{
-                      marginTop: '24px',
-                    }}
-                  >
-                    Search
-                  </Form.Button>
-                </Form.Group>
-              </Form>
-            </Segment>
+            <Search
+              onSubmit={this.onSubmit}
+              onInputChange={this.onInputChange}
+              query={query}
+            />
           </Grid.Column>
         </Grid>
       </Container>
@@ -147,14 +114,14 @@ class HomePage extends Component {
   }
 }
 
-HomePage.propTypes = {
+MainPage.propTypes = {
   getResult: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
 };
 
-HomePage.defaultProps = {
+MainPage.defaultProps = {
   history: null,
 };
 
@@ -163,4 +130,4 @@ export default connect(
   {
     getResult,
   },
-)(HomePage);
+)(MainPage);
