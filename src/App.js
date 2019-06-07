@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import HomePage from './components/HomePage/HomePage';
 import RepoDetail from './components/RepoDetail/RepoDetail';
 import SearchResult from './components/SearchResult/SearchResult';
+import MainPage from './containers/MainPage/MainPage';
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={MainPage} />
           <Route path="/search_result/:query" component={SearchResult} />
           <Route path="/info/:name" component={RepoDetail} />
         </div>
