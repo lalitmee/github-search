@@ -13,6 +13,8 @@ import {
   Image,
   Segment,
 } from 'semantic-ui-react';
+import loadingIcon from "../../images/loading.gif";
+import getResult from '../../actions';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -27,6 +29,14 @@ class SearchResult extends Component {
     this.onClickWatchers = this.onClickWatchers.bind(this);
     this.onClickStars = this.onClickStars.bind(this);
     this.onClickUsername = this.onClickUsername.bind(this);
+  }
+
+  componentDidMount() {
+    const {
+      match: { params },
+    } = this.props;
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.getResult(params.query);
   }
 
   /**
@@ -183,7 +193,7 @@ class SearchResult extends Component {
           </Header>
           <Image
             style={{ display: 'block', margin: '0 auto' }}
-            src="https://media2.giphy.com/media/y1ZBcOGOOtlpC/200.gif"
+            src={loadingIcon}
           />
         </Container>
       );
@@ -191,7 +201,7 @@ class SearchResult extends Component {
     return (
       <Container>
         <Header as="h1" style={{ padding: '20px' }}>
-          Search Result For {params.word}
+          Search Result For {params.query}
           <br />
           <Link to="/">
             <Button inverted color="orange" size="small">
@@ -296,15 +306,21 @@ function mapStateToProps(state) {
 }
 
 SearchResult.propTypes = {
-  searchResult: PropTypes.arrayOf({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    created_at: PropTypes.string,
-  }).isRequired,
-  match: PropTypes.instanceOf({
+  searchResult: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      created_at: PropTypes.string,
+    }),
+  ).isRequired,
+  match: PropTypes.shape({
     params: PropTypes.object.isRequired,
   }).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  getResult: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(SearchResult);
+export default connect(
+  mapStateToProps,
+  { getResult },
+)(SearchResult);
