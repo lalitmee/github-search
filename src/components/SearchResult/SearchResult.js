@@ -25,10 +25,6 @@ class SearchResult extends Component {
       watchersI: true,
       usernameI: true,
     };
-    this.onClickForks = this.onClickForks.bind(this);
-    this.onClickWatchers = this.onClickWatchers.bind(this);
-    this.onClickStars = this.onClickStars.bind(this);
-    this.onClickUsername = this.onClickUsername.bind(this);
   }
 
   componentDidMount() {
