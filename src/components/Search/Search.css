@@ -1,0 +1,9 @@
+.segment {
+    width: 600px;
+    margin-left: 23%;
+}
+
+.form-button {
+    margin: 0 auto;
+    display: flex;
+}

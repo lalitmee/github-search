@@ -2,16 +2,12 @@ import InlineError from 'components/Messages/InlineError/InlineError';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Form, Segment } from 'semantic-ui-react';
+import './Search.css';
 
 function Search(props) {
   const { onSubmit, onInputChange, query, errors } = props;
   return (
-    <Segment
-      style={{
-        width: '600px',
-        marginLeft: '23%',
-      }}
-    >
+    <Segment className="segment">
       <Form onSubmit={onSubmit}>
         <Form.Field error={!!errors.query}>
           <Form.Input
@@ -26,14 +22,7 @@ function Search(props) {
           {errors.query ? <InlineError text={errors.query} /> : null}
         </Form.Field>
         <Form.Field>
-          <Form.Button
-            primary
-            type="submit"
-            style={{
-              margin: '0 auto',
-              display: 'flex',
-            }}
-          >
+          <Form.Button primary type="submit" className="form-button">
             Search
           </Form.Button>
         </Form.Field>

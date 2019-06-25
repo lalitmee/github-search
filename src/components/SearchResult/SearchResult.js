@@ -184,19 +184,16 @@ class SearchResult extends Component {
     if (isFetching && !searchResult.length) {
       return (
         <Container textAlign="center">
-          <Header as="h1" style={{ padding: '20px' }}>
+          <Header as="h1" className="header">
             Fetching the Results
           </Header>
-          <Image
-            style={{ display: 'block', margin: '0 auto' }}
-            src={loadingIcon}
-          />
+          <Image className="image" src={loadingIcon} />
         </Container>
       );
     }
     return (
       <Container>
-        <Header as="h1" style={{ padding: '20px' }}>
+        <Header as="h1" className="header">
           Search Result For {params.query}
           <br />
           <Link to="/">
@@ -208,7 +205,7 @@ class SearchResult extends Component {
         <Segment>
           <Form>
             <Form.Group widths="equal">
-              <div style={{ fontSize: '25px' }}>Sorting: &nbsp;</div>
+              <div className="fs-25">Sorting: &nbsp;</div>
               <Form.Button color="orange" onClick={this.onClickForks}>
                 Forks({forksI ? 'Dec' : 'Inc'})
               </Form.Button>

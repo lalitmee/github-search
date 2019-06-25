@@ -7,8 +7,9 @@ import {
   Header,
   Icon,
   Image,
-  Segment
+  Segment,
 } from 'semantic-ui-react';
+import './RepoDetail.css';
 
 class RepoDetail extends Component {
   constructor(props) {
@@ -17,11 +18,15 @@ class RepoDetail extends Component {
   }
 
   render() {
-    const { repoDetail } = this.props.location.state;
+    const {
+      location: {
+        state: { repoDetail },
+      },
+    } = this.props;
     return (
       <Container>
-        <Header as="h1" textAlign="center" style={{ padding: '20px' }}>
-          Repo Details: &nbsp;{' '}
+        <Header as="h1" textAlign="center" className="repo-header">
+          Repo Details:
           <a
             href={repoDetail.svn_url}
             target="_blank"
@@ -182,9 +187,9 @@ class RepoDetail extends Component {
 RepoDetail.propTypes = {
   location: PropTypes.instanceOf({
     state: PropTypes.instanceOf({
-      repoDetail: PropTypes.object.isRequired
-    }).isRequired
-  }).isRequired
+      repoDetail: PropTypes.object.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default RepoDetail;

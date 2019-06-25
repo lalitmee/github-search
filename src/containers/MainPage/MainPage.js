@@ -1,10 +1,10 @@
+import getResult from 'actions/index';
 import Logo from 'components/Logo/Logo';
+import Search from 'components/Search/Search';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Grid, Header } from 'semantic-ui-react';
-import getResult from 'actions/index';
-import Search from 'components/Search/Search';
 import './MainPage.css';
 
 class MainPage extends Component {
@@ -63,25 +63,12 @@ class MainPage extends Component {
     return (
       <Container>
         <Logo />
-        <Header
-          as="h1"
-          textAlign="center"
-          style={{
-            padding: '20px',
-          }}
-        >
+        <Header as="h1" textAlign="center" className="header">
           GitHub Search
         </Header>
         <Grid>
           <Grid.Row>
-            <Header
-              as="h3"
-              textAlign="center"
-              style={{
-                margin: '0 auto',
-                padding: '20px',
-              }}
-            >
+            <Header as="h3" textAlign="center" className="sub-header">
               Search Github Repositories by entering any name you can think of
               in the search input
             </Header>
