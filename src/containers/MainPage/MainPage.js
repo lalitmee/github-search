@@ -1,10 +1,10 @@
+import Logo from 'components/Logo/Logo';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Grid, Header } from 'semantic-ui-react';
-import getResult from '../../actions/index';
-import Logo from '../../components/Logo/Logo';
-import Search from '../../components/Search/Search';
+import getResult from 'actions/index';
+import Search from 'components/Search/Search';
 import './MainPage.css';
 
 class MainPage extends Component {

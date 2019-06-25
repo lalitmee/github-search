@@ -1,3 +1,5 @@
+import getResult from 'actions/index';
+import loadingIcon from 'images/loading.gif';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -13,8 +15,6 @@ import {
   Image,
   Segment,
 } from 'semantic-ui-react';
-import loadingIcon from "../../images/loading.gif";
-import getResult from '../../actions';
 
 class SearchResult extends Component {
   constructor(props) {

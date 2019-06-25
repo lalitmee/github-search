@@ -1,7 +1,7 @@
+import InlineError from 'components/Messages/InlineError/InlineError';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Form, Segment } from 'semantic-ui-react';
-import InlineError from '../Messages/InlineError/InlineError';
 
 function Search(props) {
   const { onSubmit, onInputChange, query, errors } = props;
