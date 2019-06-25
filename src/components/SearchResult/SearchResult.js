@@ -15,6 +15,7 @@ import {
   Image,
   Segment,
 } from 'semantic-ui-react';
+import styles from './SearchResult.module.css';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -184,16 +185,16 @@ class SearchResult extends Component {
     if (isFetching && !searchResult.length) {
       return (
         <Container textAlign="center">
-          <Header as="h1" className="header">
+          <Header as="h1" className={styles.Header}>
             Fetching the Results
           </Header>
-          <Image className="image" src={loadingIcon} />
+          <Image className={styles.Image} src={loadingIcon} />
         </Container>
       );
     }
     return (
       <Container>
-        <Header as="h1" className="header">
+        <Header as="h1" className={styles.Header}>
           Search Result For {params.query}
           <br />
           <Link to="/">
@@ -205,7 +206,7 @@ class SearchResult extends Component {
         <Segment>
           <Form>
             <Form.Group widths="equal">
-              <div className="fs-25">Sorting: &nbsp;</div>
+              <div className={styles.Font25}>Sorting: &nbsp;</div>
               <Form.Button color="orange" onClick={this.onClickForks}>
                 Forks({forksI ? 'Dec' : 'Inc'})
               </Form.Button>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Grid, Header } from 'semantic-ui-react';
-import './MainPage.css';
+import styles from './MainPage.module.css';
 
 class MainPage extends Component {
   constructor(props) {
@@ -63,12 +63,12 @@ class MainPage extends Component {
     return (
       <Container>
         <Logo />
-        <Header as="h1" textAlign="center" className="header">
+        <Header as="h1" textAlign="center" className={styles.Header}>
           GitHub Search
         </Header>
         <Grid>
           <Grid.Row>
-            <Header as="h3" textAlign="center" className="sub-header">
+            <Header as="h3" textAlign="center" className={styles.SubHeader}>
               Search Github Repositories by entering any name you can think of
               in the search input
             </Header>

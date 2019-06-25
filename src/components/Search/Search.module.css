@@ -1,9 +1,9 @@
-.segment {
+.Segment {
   width: 600px;
-  margin-left: 23%;
+  margin: 0 auto !important;
 }
 
-.form-button {
+.FormButton {
   margin: 0 auto;
   display: flex;
 }

@@ -9,7 +9,7 @@ import {
   Image,
   Segment,
 } from 'semantic-ui-react';
-import './RepoDetail.css';
+import styles from './RepoDetail.module.css';
 
 class RepoDetail extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class RepoDetail extends Component {
     } = this.props;
     return (
       <Container>
-        <Header as="h1" textAlign="center" className="repo-header">
+        <Header as="h1" textAlign="center" className={styles.RepoHeader}>
           Repo Details:
           <a
             href={repoDetail.svn_url}

@@ -1,12 +1,12 @@
-.header {
-  padding: 20px;
+.Header {
+  padding: 10px 0;
 }
 
-.fs-25 {
+.Font25 {
   font-size: 25px;
 }
 
-.image {
+.Image {
   display: block;
   margin: 0 auto;
 }
