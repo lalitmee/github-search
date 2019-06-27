@@ -25,7 +25,7 @@ class RepoDetail extends Component {
     } = this.props;
     return (
       <Container>
-        <Header as="h1" textAlign="center" className={styles.RepoHeader}>
+        <Header as="h1" textAlign="center" className={styles.repoHeader}>
           Repo Details:
           <a
             href={repoDetail.svn_url}

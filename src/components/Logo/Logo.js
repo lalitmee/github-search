@@ -1,10 +1,10 @@
-import githubIcon from 'images/github-icon.png';
+import githubIconImage from 'images/github-icon.png';
 import React from 'react';
 import { Image } from 'semantic-ui-react';
-import './Logo.css';
+import styles from './Logo.module.css';
 
 function Logo() {
-  return <Image className="github-icon" src={githubIcon} />;
+  return <Image className={styles.githubIcon} src={githubIconImage} />;
 }
 
 export default Logo;

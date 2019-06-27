@@ -4,7 +4,7 @@ import Search from 'components/Search/Search';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Grid, Header } from 'semantic-ui-react';
+import { Container, Grid, Header, Segment } from 'semantic-ui-react';
 import styles from './MainPage.module.css';
 
 class MainPage extends Component {
@@ -62,28 +62,22 @@ class MainPage extends Component {
     const { query, errors } = this.state;
     return (
       <Container>
-        <Logo />
-        <Header as="h1" textAlign="center" className={styles.Header}>
-          GitHub Search
-        </Header>
-        <Grid>
-          <Grid.Row>
-            <Header as="h3" textAlign="center" className={styles.SubHeader}>
-              Search Github Repositories by entering any name you can think of
-              in the search input
-            </Header>
-          </Grid.Row>
-        </Grid>
-        <Grid centered columns={1}>
-          <Grid.Column>
-            <Search
-              onSubmit={this.onSubmit}
-              onInputChange={this.onInputChange}
-              query={query}
-              errors={errors}
-            />
-          </Grid.Column>
-        </Grid>
+        <Segment className={styles.segment}>
+          <Logo />
+          <Header as="h1" textAlign="center" className={styles.header}>
+            GitHub Search
+          </Header>
+          <Grid centered columns={1}>
+            <Grid.Column>
+              <Search
+                onSubmit={this.onSubmit}
+                onInputChange={this.onInputChange}
+                query={query}
+                errors={errors}
+              />
+            </Grid.Column>
+          </Grid>
+        </Segment>
       </Container>
     );
   }
