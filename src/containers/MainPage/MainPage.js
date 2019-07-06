@@ -30,12 +30,11 @@ class MainPage extends Component {
    */
   onSubmit = () => {
     const { query } = this.state;
-    const { history } = this.props;
+    const { history, getSearchResult } = this.props;
     const errors = this.validate(query);
     this.setState({ errors });
     if (!errors.query) {
-      // eslint-disable-next-line react/destructuring-assignment
-      this.props.getResult(query);
+      getSearchResult(query);
       history.push(`/search_result/${query}`);
     }
   };
@@ -84,7 +83,7 @@ class MainPage extends Component {
 }
 
 MainPage.propTypes = {
-  getResult: PropTypes.func.isRequired,
+  getSearchResult: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
@@ -97,6 +96,6 @@ MainPage.defaultProps = {
 export default connect(
   null,
   {
-    getResult,
+    getSearchResult: getResult,
   },
 )(MainPage);

@@ -31,9 +31,9 @@ class SearchResult extends Component {
   componentDidMount() {
     const {
       match: { params },
+      getSearchResult,
     } = this.props;
-    // eslint-disable-next-line react/destructuring-assignment
-    this.props.getResult(params.query);
+    getSearchResult(params.query);
   }
 
   /**
@@ -311,10 +311,10 @@ SearchResult.propTypes = {
     params: PropTypes.object.isRequired,
   }).isRequired,
   isFetching: PropTypes.bool.isRequired,
-  getResult: PropTypes.func.isRequired,
+  getSearchResult: PropTypes.func.isRequired,
 };
 
 export default connect(
   mapStateToProps,
-  { getResult },
+  { getSearchResult: getResult },
 )(SearchResult);
