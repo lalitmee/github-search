@@ -1,4 +1,3 @@
-import getResult from 'actions/index';
 import loadingIcon from 'images/loading.gif';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -15,6 +14,7 @@ import {
   Image,
   Segment,
 } from 'semantic-ui-react';
+import * as actions from 'store/actions/index';
 import styles from './SearchResult.module.css';
 
 class SearchResult extends Component {
@@ -176,13 +176,13 @@ class SearchResult extends Component {
   render() {
     const {
       match: { params },
-      isFetching,
+      loading,
       searchResult,
     } = this.props;
 
     const { forksI, watchersI, starsI, reponame, usernameI } = this.state;
 
-    if (isFetching && !searchResult.length) {
+    if (loading) {
       return (
         <Container textAlign="center">
           <Header as="h1" className={styles.header}>
@@ -227,7 +227,7 @@ class SearchResult extends Component {
           </Form>
         </Segment>
         <Card.Group stackable doubling itemsPerRow={3}>
-          {searchResult.length !== 0 &&
+          {searchResult &&
             searchResult.map(repo => (
               <Card color="green" key={repo.id}>
                 <Card.Content>
@@ -279,26 +279,6 @@ class SearchResult extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  if (state.dataReducer.length > 0) {
-    const count = state.dataReducer.length;
-    if (state.dataReducer[count - 1].isFetching === false) {
-      return {
-        searchResult: state.dataReducer[count - 1].data.items,
-        isFetching: state.dataReducer[count - 1].isFetching,
-      };
-    }
-    return {
-      searchResult: [],
-      isFetching: state.dataReducer[count - 1].isFetching,
-    };
-  }
-  return {
-    searchResult: [],
-    isFetching: true,
-  };
-}
-
 SearchResult.propTypes = {
   searchResult: PropTypes.arrayOf(
     PropTypes.shape({
@@ -310,11 +290,24 @@ SearchResult.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
   }).isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   getSearchResult: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => {
+  return {
+    searchResult: state.searchResult,
+    loading: state.loading,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getSearchResult: query => dispatch(actions.getResult(query)),
+  };
 };
 
 export default connect(
   mapStateToProps,
-  { getSearchResult: getResult },
+  mapDispatchToProps,
 )(SearchResult);
