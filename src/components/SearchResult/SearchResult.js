@@ -1,4 +1,3 @@
-import loadingIcon from 'images/loading.gif';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -7,11 +6,13 @@ import {
   Button,
   Card,
   Container,
+  Dimmer,
   Form,
   Grid,
   Header,
   Icon,
-  Image,
+  Loader,
+  Pagination,
   Segment,
 } from 'semantic-ui-react';
 import * as actions from 'store/actions/index';
@@ -33,7 +34,7 @@ class SearchResult extends Component {
       match: { params },
       getSearchResult,
     } = this.props;
-    getSearchResult(params.query);
+    getSearchResult(params.query, params.page_number);
   }
 
   /**
@@ -173,108 +174,140 @@ class SearchResult extends Component {
       return 0;
     });
 
+  pageChangeHandler = (event, data) => {
+    const {
+      match: { params },
+      getSearchResult,
+    } = this.props;
+    const { history } = this.props;
+    history.push(`/search_result/${params.query}/${data.activePage}`);
+    getSearchResult(params.query, data.activePage);
+  };
+
   render() {
     const {
       match: { params },
       loading,
       searchResult,
+      totalRecords,
     } = this.props;
 
     const { forksI, watchersI, starsI, reponame, usernameI } = this.state;
 
-    if (loading) {
-      return (
-        <Container textAlign="center">
-          <Header as="h1" className={styles.header}>
-            Fetching the Results
-          </Header>
-          <Image className={styles.image} src={loadingIcon} />
-        </Container>
-      );
-    }
-    return (
-      <Container>
-        <Header as="h1" className={styles.header}>
-          Search Result For {params.query}
-          <br />
-          <Link to="/">
-            <Button inverted color="orange" size="small">
-              <p>Search Another</p>
-            </Button>
-          </Link>
-        </Header>
-        <Segment>
-          <Form>
-            <Form.Group widths="equal">
-              <div className={styles.font25}>Sorting: &nbsp;</div>
-              <Form.Button color="orange" onClick={this.onClickForks}>
-                Forks({forksI ? 'Dec' : 'Inc'})
-              </Form.Button>
-              <Form.Button color="yellow" onClick={this.onClickWatchers}>
-                Watchers({watchersI ? 'Dec' : 'Inc'})
-              </Form.Button>
-              <Form.Button color="green" onClick={this.onClickStars}>
-                Stars({starsI ? 'Dec' : 'Inc'})
-              </Form.Button>
-              <Form.Button color="teal" onClick={this.onClickUsername}>
-                Username({usernameI ? 'Dec' : 'Inc'})
-              </Form.Button>
-
-              <Form.Button color="teal" onClick={this.onClickRepoName}>
-                Repo Name({reponame ? 'Dec' : 'Inc'})
-              </Form.Button>
-            </Form.Group>
-          </Form>
+    let searchResultData = (
+      <Container className={styles.loader}>
+        <Segment className={styles.loaderSegment}>
+          <Dimmer active inverted>
+            <Loader inverted size="massive" inline="centered">
+              Getting Results for {params.query}
+            </Loader>
+          </Dimmer>
         </Segment>
-        <Card.Group stackable doubling itemsPerRow={3}>
-          {searchResult &&
-            searchResult.map(repo => (
-              <Card color="green" key={repo.id}>
-                <Card.Content>
-                  <Card.Header>
-                    <Link
-                      to={{
-                        pathname: `/info/${repo.name}`,
-                        state: {
-                          repoDetail: repo,
-                        },
-                      }}
-                    >
-                      {repo.name}
-                    </Link>
-                  </Card.Header>
-                  <Card.Meta>
-                    <span className="date">
-                      <strong>Created On: &nbsp;</strong> {repo.created_at}
-                    </span>
-                  </Card.Meta>
-                  <Card.Description>
-                    <strong>User Name: &nbsp;</strong>
-                    {repo.owner.login}
-                  </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  <Grid columns={3}>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Icon name="eye" />
-                        {repo.watchers_count}
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Icon name="star" />
-                        {repo.stargazers_count}
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Icon name="fork" />
-                        {repo.forks_count}
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Card.Content>
-              </Card>
-            ))}
-        </Card.Group>
       </Container>
+    );
+    if (!loading) {
+      searchResultData =
+        searchResult &&
+        searchResult.map(repo => (
+          <Card color="green" key={repo.id}>
+            <Card.Content>
+              <Card.Header>
+                <Link
+                  to={{
+                    pathname: `/info/${repo.name}`,
+                    state: {
+                      repoDetail: repo,
+                    },
+                  }}
+                >
+                  {repo.name}
+                </Link>
+              </Card.Header>
+              <Card.Meta>
+                <span className="date">
+                  <strong>Created On: &nbsp;</strong> {repo.created_at}
+                </span>
+              </Card.Meta>
+              <Card.Description>
+                <strong>User Name: &nbsp;</strong>
+                {repo.owner.login}
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <Grid columns={3}>
+                <Grid.Row>
+                  <Grid.Column>
+                    <Icon name="eye" />
+                    {repo.watchers_count}
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Icon name="star" />
+                    {repo.stargazers_count}
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Icon name="fork" />
+                    {repo.forks_count}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Card.Content>
+          </Card>
+        ));
+    }
+
+    return (
+      <div>
+        <Container>
+          <Header as="h1" className={styles.header}>
+            Search Result For {params.query}
+            <br />
+            <Link to="/">
+              <Button inverted color="orange" size="small">
+                <p>Search Another</p>
+              </Button>
+            </Link>
+          </Header>
+          <Segment>
+            <Form>
+              <Form.Group widths="equal">
+                <div className={styles.font25}>Sorting: &nbsp;</div>
+                <Form.Button color="orange" onClick={this.onClickForks}>
+                  Forks({forksI ? 'Dec' : 'Inc'})
+                </Form.Button>
+                <Form.Button color="yellow" onClick={this.onClickWatchers}>
+                  Watchers({watchersI ? 'Dec' : 'Inc'})
+                </Form.Button>
+                <Form.Button color="green" onClick={this.onClickStars}>
+                  Stars({starsI ? 'Dec' : 'Inc'})
+                </Form.Button>
+                <Form.Button color="teal" onClick={this.onClickUsername}>
+                  Username({usernameI ? 'Dec' : 'Inc'})
+                </Form.Button>
+
+                <Form.Button color="teal" onClick={this.onClickRepoName}>
+                  Repo Name({reponame ? 'Dec' : 'Inc'})
+                </Form.Button>
+              </Form.Group>
+            </Form>
+          </Segment>
+          <Card.Group stackable doubling itemsPerRow={3}>
+            {searchResultData}
+          </Card.Group>
+        </Container>
+        {totalRecords > 20 ? (
+          <Segment className={styles.paginatorSegment}>
+            <Pagination
+              className={styles.paginator}
+              defaultActivePage={params.page_number}
+              siblingRange={7}
+              onPageChange={(event, data) =>
+                this.pageChangeHandler(event, data)
+              }
+              totalPages={1000 / 20}
+            />
+          </Segment>
+        ) : null}
+      </div>
     );
   }
 }
@@ -291,19 +324,21 @@ SearchResult.propTypes = {
     params: PropTypes.object.isRequired,
   }).isRequired,
   loading: PropTypes.bool.isRequired,
+  totalRecords: PropTypes.number.isRequired,
   getSearchResult: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
   return {
     searchResult: state.searchResult,
+    totalRecords: state.totalRecords,
     loading: state.loading,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSearchResult: query => dispatch(actions.getResult(query)),
+    getSearchResult: (query, page) => dispatch(actions.getResult(query, page)),
   };
 };
 

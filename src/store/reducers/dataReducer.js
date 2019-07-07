@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/types';
 
 const initialState = {
   searchResult: [],
+  totalRecords: 0,
   loading: false,
 };
 
@@ -10,7 +11,12 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.FETCH_DATA_START:
       return { ...state, searchResult: [], loading: true };
     case actionTypes.FETCH_DATA_SUCCESS:
-      return { ...state, searchResult: action.data, loading: false };
+      return {
+        ...state,
+        searchResult: action.data,
+        totalRecords: action.totalRecords,
+        loading: false,
+      };
     case actionTypes.FETCH_DATA_FAILED:
       return { ...state, loading: false };
     default:

@@ -32,7 +32,7 @@ class MainPage extends Component {
     const errors = this.validate(query);
     this.setState({ errors });
     if (!errors.query) {
-      history.push(`/search_result/${query}`);
+      history.push(`/search_result/${query}/1`);
     }
   };
 

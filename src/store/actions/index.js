@@ -13,6 +13,7 @@ export const setSearchDataSuccess = data => {
   return {
     type: actionTypes.FETCH_DATA_SUCCESS,
     data: data.items,
+    totalRecords: data.total_count,
   };
 };
 
@@ -22,11 +23,11 @@ export const getSearchDataFailed = () => {
   };
 };
 
-export const getResult = query => {
+export const getResult = (query, page) => {
   return dispatch => {
     dispatch(setSearchDataStart());
     axios
-      .get(`${BASE_URL}?q=${query}&order=asc`)
+      .get(`${BASE_URL}?q=${query}&order=asc&page=${page}&per_page=20`)
       .then(res => {
         dispatch(setSearchDataSuccess(res.data));
       })
