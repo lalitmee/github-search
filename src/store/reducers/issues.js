@@ -6,22 +6,22 @@ const initialState = {
   loading: false,
 };
 
-const dataReducer = (state = initialState, action) => {
+const issues = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_DATA_START:
+    case actionTypes.FETCH_ISSUES_START:
       return { ...state, searchResult: [], loading: true };
-    case actionTypes.FETCH_DATA_SUCCESS:
+    case actionTypes.FETCH_ISSUES_SUCCESS:
       return {
         ...state,
         searchResult: action.data,
         totalRecords: action.totalRecords,
         loading: false,
       };
-    case actionTypes.FETCH_DATA_FAILED:
+    case actionTypes.FETCH_ISSUES_FAILED:
       return { ...state, loading: false };
     default:
       return state;
   }
 };
 
-export default dataReducer;
+export default issues;

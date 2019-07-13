@@ -1,5 +1,5 @@
 import RepoDetail from 'components/RepoDetail/RepoDetail';
-import SearchResult from 'components/SearchResult/SearchResult';
+import SearchResults from 'components/SearchResults/SearchResults';
 import MainPage from 'containers/MainPage/MainPage';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -17,7 +17,7 @@ class App extends Component {
           <Route exact path="/" component={MainPage} />
           <Route
             path="/search_result/:query/:page_number"
-            component={SearchResult}
+            component={SearchResults}
           />
           <Route path="/info/:name" component={RepoDetail} />
         </div>
