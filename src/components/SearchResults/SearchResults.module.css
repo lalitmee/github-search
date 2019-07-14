@@ -1,0 +1,35 @@
+.header {
+  padding: 10px 0 !important;
+}
+
+.font25 {
+  font-size: 25px;
+}
+
+.image {
+  display: block;
+  margin: 0 auto;
+}
+
+/* .loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.loaderSegment {
+  height: 81vh !important;
+}
+
+.paginatorSegment {
+  display: flex !important;
+  position: sticky !important;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+}
+
+.paginator {
+  margin: 0 auto !important;
+}

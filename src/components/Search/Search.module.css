@@ -1,0 +1,14 @@
+.segment {
+  width: 600px;
+  margin: 0 auto !important;
+}
+
+.formButton {
+  margin: 0 auto;
+  display: flex;
+}
+
+.formGrid {
+  display: flex !important;
+  align-items: center;
+}
