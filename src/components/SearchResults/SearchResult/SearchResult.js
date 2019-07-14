@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Container, Header, Image } from 'semantic-ui-react';
+import { Card, Container, Header, Image } from 'semantic-ui-react';
 import styles from './SearchResult.module.css';
 
 const SearchResult = ({ searchResult, name }) => {
@@ -11,10 +11,21 @@ const SearchResult = ({ searchResult, name }) => {
       <Card key={repo.id}>
         <Card.Content>
           <Image floated="right" size="mini" src={repo.owner.avatar_url} />
-          <Card.Header>{repo.name}</Card.Header>
+          <Card.Header>
+            <Link
+              to={{
+                pathname: `/info/${repo.name}`,
+                state: {
+                  repoDetail: repo,
+                },
+              }}
+            >
+              {repo.name}
+            </Link>
+          </Card.Header>
           <Card.Description>{repo.description}</Card.Description>
         </Card.Content>
-        <Card.Content extra>
+        {/* <Card.Content extra>
           <div className="ui two buttons">
             <Link
               to={{
@@ -32,7 +43,7 @@ const SearchResult = ({ searchResult, name }) => {
               Decline
             </Button>
           </div>
-        </Card.Content>
+        </Card.Content> */}
       </Card>
     ));
   return (
